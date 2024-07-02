@@ -33,7 +33,7 @@ class thread_motor(Thread):
         self.motor = motor
         self.movimiento = movimiento
     def run(self):
-        comando = "cd raspberrylib/; python3 motor_control_ssh.py " + self.motor + ' ' + self.movimiento
+        comando = "cd raspberrylib && motor_control_ssh.py " + self.motor + ' ' + self.movimiento
         runcmd(comando, verbose=True)
 
 # Configuración inicial cámara

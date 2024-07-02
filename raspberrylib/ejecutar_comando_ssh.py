@@ -24,7 +24,7 @@ def ejecutar_comando_ssh(comando):
 
     # Realizar la copia segura utilizando SCP
     sftp = ssh.open_sftp()
-    sftp.put('/home/mueller/Escritorio/MuellerRT-main/raspberrylib/motor_control.py', '/home/mwsi/Desktop/main/' + 'motor_control.py')
+    sftp.put('motor_control.py', '/home/mwsi/Desktop/main/motor_control.py')
     sftp.close()
 
     stdin, stdout, stderr = ssh.exec_command(comando)

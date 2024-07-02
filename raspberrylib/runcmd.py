@@ -7,8 +7,7 @@ def runcmd(cmd, verbose = False, *args, **kwargs):
         stdout = subprocess.PIPE,
         stderr = subprocess.PIPE,
         text = True,
-        shell = True,
-        executable='/bin/bash'
+        shell = True
     )
     std_out, std_err = process.communicate()
     if verbose:

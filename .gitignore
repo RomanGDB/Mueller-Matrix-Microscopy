@@ -1,1 +1,8 @@
-"/output/" 
+#Ignorar archivos .png
+*.png
+
+#Ignorar cache
+*.pyc
+
+#Ignorar comprimidos
+*.gz

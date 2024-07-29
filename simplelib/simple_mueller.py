@@ -9,8 +9,11 @@ from camaralib.guardar_mueller import guardar_mueller
 from camaralib.take_mueller import take_mueller
 from camaralib.digitalizar import digitalizar
 
+#Directorio de raíz
+os.chdir('..')
+
 #Rutas
-IMG_LOAD_PATH = 'stokes/Sin_inv.npy.gz'            
+IMG_LOAD_PATH = 'output/stokes/Sin_inv.npy.gz'            
 IMG_SAVE_PATH = 'mueller/'
 
 # Exposiciona
@@ -23,17 +26,19 @@ N = 1
 decimador = 1
 
 #Angulos de polarizacion de entrada
-thetas_list = [0,30,60,90,120,150]  
+#thetas_list = [0,30,60,90,120,150]  
+thetas_list = [0,60,120]  
 
 #Matrices de estadísticas	
 f = gzip.GzipFile(IMG_LOAD_PATH, 'rb')
 S_in_stat_inv = np.load(f)[::decimador,::decimador]           
 
 def main():
+    #Nombre
+    name = sys.argv[1]  
 
-    #Nombre archivo
-    name = input("Ingresa el directorio destino: ")
-    IMG_SAVE_PATH = 'img/' + name
+    #Directorio
+    IMG_SAVE_PATH = 'output/mueller/' + name
     if not os.path.exists(IMG_SAVE_PATH): 
         os.makedirs(IMG_SAVE_PATH)
 

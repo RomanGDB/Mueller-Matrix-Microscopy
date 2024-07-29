@@ -1,6 +1,7 @@
 
 import paramiko
-import sys
+import subprocess
+import os
 
 #Esta librería cuenta con algoritmos para controlar la cámara y los motores.
 
@@ -24,9 +25,12 @@ def ejecutar_comando_ssh(comando):
 
     # Realizar la copia segura utilizando SCP
     sftp = ssh.open_sftp()
+    os.chdir('raspberrylib')
     sftp.put('motor_control.py', '/home/mwsi/Desktop/main/motor_control.py')
+    os.chdir('..')
     sftp.close()
 
+    #Ejecuta comando
     stdin, stdout, stderr = ssh.exec_command(comando)
 
     print(stdout.read().decode())

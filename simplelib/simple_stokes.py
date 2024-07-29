@@ -7,8 +7,11 @@ sys.path.append('../')
 from camaralib.take_mueller_stokes import take_mueller_stokes
 from camaralib.guardar_stokes import guardar_stokes
 
+#Directorio Raíz
+os.chdir('..')
+
 # Ruta carpeta en dónde guardar
-IMG_SAVE_PATH = 'stokes/'  
+IMG_SAVE_PATH = 'output/stokes/'  
 
 if not os.path.exists(IMG_SAVE_PATH): 
     os.makedirs(IMG_SAVE_PATH)
@@ -23,7 +26,8 @@ N = 1
 decimador = 1
 
 #Angulos de polarizacion de entrada
-thetas_list = [0,30,60,90,120,150]  
+#thetas_list = [0,30,60,90,120,150]
+thetas_list = [0,60,120]  
 
 def main():
 

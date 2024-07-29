@@ -9,6 +9,9 @@ from camaralib.guardar_img import guardar_img
 from camaralib.digitalizar import digitalizar
 from stokeslib.calcular_propiedades import calcular_dolp, calcular_aolp
 
+#Directorio Raíz
+os.chdir('..')
+
 #Exposicion
 exposure_time = 5000
 
@@ -16,10 +19,11 @@ exposure_time = 5000
 N = 1
 
 def main():
+    #Nombre
+    name = sys.argv[1]  
 
-    #Nombre archivo
-    name = input("Ingresa el directorio destino: ")
-    IMG_SAVE_PATH = 'simple_img/' + name
+    #Directorio
+    IMG_SAVE_PATH = 'output/photo/' + name
     if not os.path.exists(IMG_SAVE_PATH): 
         os.makedirs(IMG_SAVE_PATH)
 

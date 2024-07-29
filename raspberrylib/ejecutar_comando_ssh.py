@@ -1,9 +1,6 @@
 
 import paramiko
-import subprocess
 import os
-
-#Esta librería cuenta con algoritmos para controlar la cámara y los motores.
 
 #Definiciones
 RPI_USER = 'mwsi'

@@ -2,10 +2,13 @@ import sys
 import numpy as np
 import gzip
 import os
+import cv2
 
 sys.path.append('../')
 from camaralib.take_mueller_stokes import take_mueller_stokes
 from camaralib.guardar_stokes import guardar_stokes
+from camaralib.digitalizar import digitalizar
+from stokeslib.acoplar_matriz import acoplar_matriz
 
 #Directorio Raíz
 os.chdir('..')
@@ -30,17 +33,21 @@ decimador = 1
 thetas_list = [0,60,120]  
 
 def main():
-
     #Nombre
-    name = 'Sin_inv.npy.gz'
+    name = sys.argv[1]  
 
     #Toma vectores de Stokes
     S_in_stat = take_mueller_stokes(exposure_time, N, thetas_list)
 
     #Guarda numpy stokes comprimido
-    print("Guardando array...")
-    f = gzip.GzipFile(IMG_SAVE_PATH + name, 'wb')
-    np.save(f, np.linalg.pinv(S_in_stat))
+    print("Guardando imagen...")
+    S_in_stat_img = acoplar_matriz(digitalizar(S_in_stat, 'S1'))
+    cv2.imwrite(IMG_SAVE_PATH + 'S_' + name + '.png', S_in_stat_img)
+    
+    if name == 'in':
+        print("Guardando array invertido...")
+        f = gzip.GzipFile(IMG_SAVE_PATH + 'Sin_inv.npy.gz', 'wb')
+        np.save(f, np.linalg.pinv(S_in_stat))
 
     return True
 

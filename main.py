@@ -13,14 +13,9 @@ import cv2
 sys.path.append('../')
 from stokeslib.polarization_full_dec_array import polarization_full_dec_array
 from stokeslib.calcular_stokes import calcular_stokes
-from stokeslib.calcular_mueller_canal_inv import calcular_mueller_canal_inv 
-from stokeslib.acoplar_mueller import acoplar_mueller 
-from stokeslib.mueller_mean import mueller_mean
-from stokeslib.normalizar_mueller import normalizar_mueller
 from camaralib.digitalizar import digitalizar
 from raspberrylib.runcmd import runcmd
 from stokeslib.calcular_propiedades import calcular_dolp, calcular_aolp
-from camaralib.guardar_mueller import guardar_mueller_canal
 
 os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = QLibraryInfo.location(
     QLibraryInfo.PluginsPath

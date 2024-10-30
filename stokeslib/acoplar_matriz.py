@@ -1,19 +1,21 @@
 import numpy as np
 
 def acoplar_matriz(M):
+    # Número de filas de la matriz M
+    filas = M.shape[3]  # M[:,:,:,i,j] -> i va hasta shape[3]
+    N = M.shape[4]      # Número de columnas -> shape[4]
 
-  M1_show = M[:,:,:,0,0].copy()
-  M2_show = M[:,:,:,1,0].copy()
-  M3_show = M[:,:,:,2,0].copy()
+    # Crear una lista para almacenar las matrices acopladas horizontalmente
+    matrices_acopladas = []
 
-  N = M.shape[4]
+    # Acoplar horizontalmente cada matriz individual
+    for i in range(filas):
+        matriz_i = M[:,:,:,i,0].copy()
+        for j in range(1, N):
+            matriz_i = np.append(matriz_i, M[:,:,:,i,j], axis=1)
+        matrices_acopladas.append(matriz_i)
 
-  for i in range(1, N):
-    M1_show = np.append(M1_show, M[:,:,:,0,i], axis=1)
-    M2_show = np.append(M2_show, M[:,:,:,1,i], axis=1)
-    M3_show = np.append(M3_show, M[:,:,:,2,i], axis=1)
+    # Acoplar verticalmente todas las matrices acopladas horizontalmente
+    M_show = np.concatenate(matrices_acopladas, axis=0)
 
-  M_show = np.append(M1_show, M2_show, axis = 0)
-  M_show = np.append(M_show, M3_show, axis = 0)
-  
-  return M_show
+    return M_show

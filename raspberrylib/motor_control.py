@@ -25,7 +25,7 @@ motores = {
             "motor_pin2": 13,
             "motor_pin3": 6,
             "motor_pin4": 5, },
-        "step_num": 512//6, #512 por vuelta
+        "step_num": (512*68)//360, #512 por vuelta
     }
 }
 

@@ -15,18 +15,23 @@ decimador = 1
 # Captura el vector de Stokes variando el ángulo de entrada
 def take_intensities(exposure_time, N, thetas_list):
 
-    # Numero de angulos    
+    # Numero de angulos y angle backward
     N_datos = len(thetas_list)
-    
-    print(N_datos)
+    angle_backward = str(thetas_list[-1])
+    print('Angulos: ', thetas_list)
 
     # Matrices de estadísticas
     I_stat = np.zeros((dim[0]//2,dim[1]//2,3,4,N_datos), dtype=float)[::decimador,::decimador]
     
     for i, theta in enumerate(thetas_list):
-    
+
+        # Angle forward
+        if (theta != thetas_list[-1]):
+            angle_forward = str(thetas_list[i+1] - thetas_list[i])
+
         # Toma una captura de intensidades
-        print("Tomando Intensidades...") 
+        print(f"Tomando Intensidades para ángulo de medida {theta}º") 
+
         # Toma la foto
         image_data = take_photo(exposure_time, N)
     
@@ -38,19 +43,18 @@ def take_intensities(exposure_time, N, thetas_list):
     
         # Almacena intensidades        
         for j in range(4):
-            I_stat[:,:,:,j,i] = I_list[j] 
+            I_stat[:,:,:,j,i] = I_list[j]
 
         # Mientras no sea el ultimo
-        if theta != thetas_list[-1]:
+        if (theta != thetas_list[-1]):
             # Mueve el motor
-            print("Moviendo T en direccion F...")
-            comando = f"cd /home/mwsi/Desktop/main && python motor_control.py T F"
+            print(f"Moviendo T unos {angle_forward}º en direccion F ...")
+            comando = f"cd /home/mwsi/Desktop/main && python motor_control.py T F " + angle_forward
             ejecutar_comando_ssh(comando)
 
     # Volver a posicion original
-    for _ in range(len(thetas_list)-1):
-        print("Moviendo T en direccion B...")
-        comando = f"cd /home/mwsi/Desktop/main && python motor_control.py T B"
-        ejecutar_comando_ssh(comando)
+    print(f"Moviendo T unos {angle_backward}º en direccion B ...")
+    comando = f"cd /home/mwsi/Desktop/main && python motor_control.py T B " + angle_backward
+    ejecutar_comando_ssh(comando)
 
     return I_stat

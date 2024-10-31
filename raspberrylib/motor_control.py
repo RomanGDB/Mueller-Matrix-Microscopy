@@ -75,14 +75,13 @@ def step_backward(motor):
 
 
 # Función para controlar los motores
-def controlar_motores(motor_input, movimiento_input):
+def controlar_motores(motor_input, movimiento_input, steps):
     try:
         if motor_input not in motores or movimiento_input not in ["F", "B"]:
             raise ValueError("Motor o movimiento no válido.")
 
         motor = motor_input
         movimiento = movimiento_input
-        steps = motores[motor].get("step_num")
         if movimiento == "F":
             for _ in range(steps):
                 step_forward(motor)
@@ -99,12 +98,17 @@ def controlar_motores(motor_input, movimiento_input):
 if __name__ == "__main__":
     import sys
 
-    if len(sys.argv) != 3:
-        print("Uso: python main.py <motor> <movimiento>")
-        print("Ejemplo: python main.py X F  # Mueve el motor X hacia adelante")
+    if len(sys.argv) != 4:
+        print("Uso: python main.py <motor> <movimiento> <angle>")
+        print("Ejemplo: python main.py X F angle  # Mueve el motor X hacia adelante")
         sys.exit(1)
 
+    #Entradas
     motor_input = sys.argv[1].upper()
     movimiento_input = sys.argv[2].upper()
+    angle = sys.argv[3].upper()
 
-    controlar_motores(motor_input, movimiento_input)
+    #Pasos
+    steps = (512*int(angle))//360
+
+    controlar_motores(motor_input, movimiento_input, steps)

@@ -8,4 +8,4 @@ def normalizar_mueller(M):
       for k in range(3):
         M_norm[:,:,k,i,j] = M_norm[:,:,k,i,j]/M[:,:,k,0,0]
 
-  return M_norm
+  return M[:,:,k,0,0], M_norm

@@ -8,12 +8,13 @@ sys.path.append('../')
 from camaralib.guardar_mueller import guardar_mueller
 from camaralib.take_mueller import take_mueller
 from camaralib.digitalizar import digitalizar
+from stokeslib.desacoplar_matriz import desacoplar_matriz
 
 #Directorio de raíz
 os.chdir('..')
 
 #Rutas
-IMG_LOAD_PATH = 'output/stokes/Sin_inv.npy.gz'            
+IMG_LOAD_PATH = 'input/I_input.png'            
 IMG_SAVE_PATH = 'mueller/'
 
 # Exposiciona
@@ -26,12 +27,10 @@ N = 1
 decimador = 1
 
 #Angulos de polarizacion de entrada
-#thetas_list = [0,30,60,90,120,150]  
-thetas_list = [0,60,120]  
+thetas_list = list((np.array([0,30,60,90,120,150])/0.44).astype(np.uint16))
 
-#Matrices de estadísticas	
-f = gzip.GzipFile(IMG_LOAD_PATH, 'rb')
-S_in_stat_inv = np.load(f)[::decimador,::decimador]           
+#Intensidades de Entrada
+I_in = desacoplar_matriz(cv2.imread(IMG_LOAD_PATH))
 
 def main():
     #Nombre
@@ -43,13 +42,13 @@ def main():
         os.makedirs(IMG_SAVE_PATH)
 
     #Captura matriz de Mueller
-    m00, M = take_mueller(S_in_stat_inv, exposure_time, N, IMG_LOAD_PATH, thetas_list)
+    m00, M = take_mueller(I_in, exposure_time, N, thetas_list)
 
     #Digitaliza intensidad
     m00_dig = digitalizar(m00, 'm00')
 
     # Guarda imagen de intensidad
-    cv2.imwrite(IMG_SAVE_PATH + '/' + 'm00.png', m00_dig)
+    cv2.imwrite(IMG_SAVE_PATH + '/' + 'm00.jpg', m00_dig)
 
     #Guardar matriz de Mueller
     guardar_mueller(M, IMG_SAVE_PATH, 'M')

@@ -26,6 +26,6 @@ import numpy as np
 #                Cuarta componente: Dimensión vertical de la matriz (0,1,2)
 #                Quinta componente: Dimensión horizontal de la matriz (0,1,2)
 
-def calcular_mueller_inv(S_in_stat_inv,S_out_stat):
-  M = np.einsum('ijklm,ijkmn->ijkln',S_out_stat,S_in_stat_inv)
+def calcular_mueller_inv(S_in_inv,S_out):
+  M = np.einsum('ijklm,ijkmn->ijkln', S_out, S_in_inv)
   return M

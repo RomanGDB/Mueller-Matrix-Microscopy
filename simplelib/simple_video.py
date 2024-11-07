@@ -15,7 +15,7 @@ voffset = 20
 prop = 0.75
 
 #Exposicion
-exposure_time = 50000
+exposure_time = 5000
 
 # Numero de promedios
 N = 1

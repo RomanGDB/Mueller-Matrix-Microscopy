@@ -24,7 +24,7 @@ def take_mueller(I_in, exposure_time, N, thetas_list):
     # Matrices de Stokes
     S_in = np.zeros((dim[0],dim[1],3,4,N_datos))
     S_in_inv = np.zeros((dim[0],dim[1],3,N_datos,3))
-    S_out = np.zeros_like(S_in)
+    S_out = np.zeros((dim[0],dim[1],3,3,N_datos))
 
     print('Calculando Matrices de Stokes...')
 
@@ -51,10 +51,8 @@ def take_mueller(I_in, exposure_time, N, thetas_list):
 
     #Calculo de Mueller
     M = calcular_mueller_inv(S_in_inv, S_out)
+    print(M.shape)
     m00, M_norm = normalizar_mueller(M)
     _ = mueller_mean(M_norm)
-
-    # Imagen de intensidad
-    m00 = M[:,:,:,0,0]
-    
+    plt.imshow(m00)
     return m00, M_norm

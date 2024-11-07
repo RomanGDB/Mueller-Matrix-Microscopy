@@ -48,7 +48,7 @@ def main():
     m00_dig = digitalizar(m00, 'm00')
 
     # Guarda imagen de intensidad
-    cv2.imwrite(IMG_SAVE_PATH + '/' + 'm00.jpg', m00_dig)
+    cv2.imwrite(IMG_SAVE_PATH + '/' + 'm00.png', m00_dig)
 
     #Guardar matriz de Mueller
     guardar_mueller(M, IMG_SAVE_PATH, 'M')

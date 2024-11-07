@@ -100,15 +100,20 @@ if __name__ == "__main__":
 
     if len(sys.argv) != 4:
         print("Uso: python main.py <motor> <movimiento> <angle>")
-        print("Ejemplo: python main.py X F angle  # Mueve el motor X hacia adelante")
+        print("Ejemplo: python main.py T F angle  # Mueve el motor X hacia adelante")
         sys.exit(1)
 
     #Entradas
     motor_input = sys.argv[1].upper()
     movimiento_input = sys.argv[2].upper()
-    angle = sys.argv[3].upper()
+    cantidad = float(sys.argv[3].upper())
 
     #Pasos
-    steps = (512*int(angle))//360
+    if motor_input in ['X', 'Y']:
+        steps = int(50 * cantidad)        # mm
+    elif motor_input == 'T':
+        
+        steps = int((512 * cantidad) / 360) # grados
 
+    #Controlar motores
     controlar_motores(motor_input, movimiento_input, steps)

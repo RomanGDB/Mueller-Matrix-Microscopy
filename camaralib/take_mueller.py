@@ -42,8 +42,9 @@ def take_mueller(I_in, exposure_time, N, thetas_list):
     S_in_mean = stokes_mean(S_in)
     S_in_mean_inv = np.linalg.pinv(S_in_mean)
 
+    # Numero de Condición
     print('Condición del Sistema:', np.linalg.cond(S_in_mean))
-
+    
     S_in_inv = S_in_mean_inv[np.newaxis, np.newaxis, np.newaxis, :, :]
 
     #Calcula Mueller
@@ -51,8 +52,7 @@ def take_mueller(I_in, exposure_time, N, thetas_list):
 
     #Calculo de Mueller
     M = calcular_mueller_inv(S_in_inv, S_out)
-    print(M.shape)
     m00, M_norm = normalizar_mueller(M)
     _ = mueller_mean(M_norm)
-    plt.imshow(m00)
+
     return m00, M_norm

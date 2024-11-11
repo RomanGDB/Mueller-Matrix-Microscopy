@@ -29,12 +29,13 @@ decimador = 1
 
 #Angulos de polarizacion de entrada
 thetas_list = list((np.array([0,30,60,90,120,150])/0.44).astype(np.uint16))
+thetas_list = [0,70,140,200,270,340]
 
 def main():
     #Nombre
     name = sys.argv[1]  
 
-    #Toma vectores de Stokes
+    #Toma vectores de intensidades
     I_stat = take_intensities(exposure_time, N, thetas_list)
     
     #Entrada o salida

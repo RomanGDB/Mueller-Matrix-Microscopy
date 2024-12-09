@@ -15,22 +15,23 @@ def take_mueller(I_in, exposure_time, N, thetas_list):
     dim = (1024,1224)
 
     #Configuración del sistema
-    signos = [1,1,-1,-1,-1,1]
     DoP = 1
+    beta = 45
+    gamma = 1.44
 
     # Número de datos
     N_datos = len(thetas_list)
 
     # Matrices de Stokes
     S_in = np.zeros((dim[0],dim[1],3,4,N_datos))
-    S_in_inv = np.zeros((dim[0],dim[1],3,N_datos,3))
+    S_in_inv = np.zeros((dim[0],dim[1],3,N_datos,3)) #no sirve
     S_out = np.zeros((dim[0],dim[1],3,3,N_datos))
 
     print('Calculando Matrices de Stokes...')
 
     # Entrada
     S_in[:,:,:,0,:], S_in[:,:,:,1,:], S_in[:,:,:,2,:] = calcular_stokes(I_in[:,:,:,2,:], I_in[:,:,:,1,:], I_in[:,:,:,3,:], I_in[:,:,:,0,:])
-    S_in = calcular_s3(S_in, DoP = DoP, signos = signos)
+    S_in = calcular_s3(S_in, DoP, gamma, thetas_list, beta)
 
     #Mide de intensidades de salida
     I_out = take_intensities(exposure_time, N, thetas_list)

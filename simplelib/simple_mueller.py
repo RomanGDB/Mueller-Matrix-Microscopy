@@ -27,7 +27,7 @@ N = 1
 decimador = 1
 
 #Angulos de polarizacion de entrada
-thetas_list = [0,70,140,200,270,340]
+thetas_list = [0,45,90,135,180,225,270,315,360]
 
 #Intensidades de Entrada
 I_in = desacoplar_matriz(cv2.imread(IMG_LOAD_PATH))

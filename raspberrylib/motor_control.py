@@ -112,7 +112,6 @@ if __name__ == "__main__":
     if motor_input in ['X', 'Y']:
         steps = int(50 * cantidad)        # mm
     elif motor_input == 'T':
-        
         steps = int((512 * cantidad) / 360) # grados
 
     #Controlar motores

@@ -28,8 +28,7 @@ N = 1
 decimador = 1
 
 #Angulos de polarizacion de entrada
-thetas_list = list((np.array([0,30,60,90,120,150])/0.44).astype(np.uint16))
-thetas_list = [0,70,140,200,270,340]
+thetas_list = [0,45,90,135,180,225,270,315,360]
 
 def main():
     #Nombre

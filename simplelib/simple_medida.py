@@ -100,7 +100,7 @@ def main():
                 value_1, value_2, value_3 = 0, 0, 2
 
             # Imprimir Stokes 
-            print(f"[ {int(S[0,0,0,0,0])} , {value_1:.2f} , {value_2:.2f} , {value_3:.2f} ]")
+            print(f"[ {int(S[0,0,0,0,0])} , {value_1:.2f} , {value_2:.2f} , {value_3:.2f}, AoP = {0.5*np.arctan2(value_2, value_1)*180/np.pi:.1f}]")
 
             # Almacenar las nuevas medidas
             values_1.append(value_1)

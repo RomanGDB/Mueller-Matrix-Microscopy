@@ -9,6 +9,8 @@ from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import QLibraryInfo
 from simple_pyspin import Camera
 import cv2
+from datetime import datetime
+from opto import Opto
 
 sys.path.append('../')
 from stokeslib.polarization_full_dec_array import polarization_full_dec_array
@@ -36,6 +38,10 @@ exposure_time = 5000
 interpolador = 'vecinos'
 N = 1
 
+# Configuración inicial OptoTune
+current_value = 25.0
+current_step = 5.0
+
 #Decimador imagen
 decimador = 2
 
@@ -45,6 +51,9 @@ class Ui(QMainWindow):
 
         #Objeto cámara
         self.cam = cam
+        
+        # Objeto Lente
+        self.o = Opto(port='COM3')
 
         # Carga GUI diseñado
         loadUi('gui/gui.ui', self)      
@@ -54,6 +63,12 @@ class Ui(QMainWindow):
 
         #Configura Cámara
         self.config_cam(self)
+        
+        # Inicializa OptoLens
+        self.start_optolens(self)
+        
+        # Configura OptoLens
+        self.config_otpolens(self)
 
         #Muestra imagen
         self.start_recording(self) 
@@ -90,6 +105,15 @@ class Ui(QMainWindow):
     def config_cam(self, label):
         #Cambia tiempo de exposición
         self.cam.ExposureTime = self.exposure_time
+
+    def start_optolens(self, label):
+        # OptoTune
+        self.o.connect()
+        self.o.current_value = current_value
+
+    def config_otpolens(self, label):
+        # Configurar corriente cámara
+        self.o.current(self.o.current_value)
 
     def config_program(self, label):
         #Cambia número de promedio
@@ -165,10 +189,21 @@ class Ui(QMainWindow):
     def rotate_right(self):
         thread = thread_motor("T","F")
         thread.start()  
+        
+    def focus_plus_optolens(self):
+        self.o.current_value = self.o.current_value + current_step
+        self.o.current(self.o.current_value)
+
+    def focus_minus_optolens(self):
+        self.o.current_value = self.o.current_value - current_step
+        self.o.current(self.o.current_value)
 
     def auto_capture(self):
         self.cam.stop()
-        runcmd("cd simplelib/ && python simple_mueller.py test", verbose=True)
+        # Nombre del archivo
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = f"{timestamp}"
+        runcmd("cd simplelib/ && python simple_intensities.py " + filename, verbose=True)
         self.cam.start()
    
     def motor_listen(self, label):
@@ -202,10 +237,19 @@ class Ui(QMainWindow):
 
     def config_listen(self, label):
         config_btn = self.config_btn
+        
         #Camara
         config_btn.clicked.connect(self.config_cam)
+
         #Programa
         config_btn.clicked.connect(self.config_program)
+        
+        #OptoTune
+        focus_plus_btn = self.focus_plus_btn
+        focus_plus_btn.clicked.connect(self.focus_plus_optolens)
+        
+        focus_minus_btn = self.focus_minus_btn
+        focus_minus_btn.clicked.connect(self.focus_minus_optolens)
 
 def main(cam):
     app = QApplication(sys.argv)

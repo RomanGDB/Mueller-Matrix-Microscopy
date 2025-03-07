@@ -1,2 +1,2 @@
-# Mueller Microscopy
+# Mueller Matrix Microscopy
 

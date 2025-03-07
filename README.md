@@ -1,2 +1,2 @@
-# MuellerWholeSlideImaging
+# Mueller Microscopy
 

@@ -45,6 +45,9 @@ current_step = 5.0
 #Decimador imagen
 decimador = 2
 
+# Contador 
+counter = 1000
+
 class Ui(QMainWindow):
     def __init__(self, cam):
         super(Ui, self).__init__()
@@ -54,6 +57,9 @@ class Ui(QMainWindow):
         
         # Objeto Lente
         self.o = Opto(port='COM3')
+
+        # Contador
+        self.counter = counter
 
         # Carga GUI diseñado
         loadUi('gui/gui.ui', self)      
@@ -162,6 +168,12 @@ class Ui(QMainWindow):
         h, w, _ = img.shape
         S0QIMG = QImage(img, w, h, QImage.Format_RGB888)
         pixmap = QPixmap(S0QIMG)
+
+        # Alerta píxeles saturados
+        max_intensity = np.max(np.array([I0, I45, I90, I135]))
+        if max_intensity == 255:
+            print(str(self.counter) + ': Advertencia: Píxeles saturados') 
+            self.counter = self.counter + 1
 
         #Plot
         self.img.setPixmap(pixmap)

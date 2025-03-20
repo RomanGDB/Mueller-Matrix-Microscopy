@@ -31,7 +31,7 @@ class thread_motor(Thread):
         self.movimiento = movimiento
     def run(self):
         comando = "cd raspberrylib/ && motor_control_ssh.py " + self.motor + ' ' + self.movimiento
-        runcmd(comando, verbose=True)
+        runcmd(comando, verbose = True)
 
 # Configuración inicial cámara
 exposure_time = 5000
@@ -56,7 +56,7 @@ class Ui(QMainWindow):
         self.cam = cam
         
         # Objeto Lente
-        self.o = Opto(port='COM3')
+        self.o = Opto(port = 'COM3')
 
         # Contador
         self.counter = counter
@@ -214,7 +214,7 @@ class Ui(QMainWindow):
         self.cam.stop()
         # Nombre del archivo
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f"{timestamp}"
+        filename = f"{self.o.current_value}_mA_" + f"{timestamp}"
         runcmd("cd simplelib/ && python simple_intensities.py " + filename, verbose=True)
         self.cam.start()
    

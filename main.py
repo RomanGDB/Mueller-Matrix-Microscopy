@@ -40,7 +40,7 @@ N = 1
 
 # Configuración inicial OptoTune
 current_value = 25.0
-current_step = 5.0
+current_step = 2.5
 
 #Decimador imagen
 decimador = 2

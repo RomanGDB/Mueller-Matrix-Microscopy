@@ -1,7 +1,6 @@
 # Mueller Matrix Microscopy
 
 Instalación
-Seguir los pasos:
 1) Descargar e instalar Python
 2) Descargar e instalar Visual Code Studio
 3) Descargar e instalar Git for Windows

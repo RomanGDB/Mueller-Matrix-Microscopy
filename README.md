@@ -1,6 +1,6 @@
 # Mueller Matrix Microscopy
 
-![Render](https://github.com/user-attachments/assets/f0ec65f2-707a-4837-b4ff-cd4024f4cc26)
+![Render](https://github.com/user-attachments/assets/d136ebd3-fe9c-47ab-9521-c0ecb94bcf7b)
 
 Instalación
 1) Descargar e instalar Python

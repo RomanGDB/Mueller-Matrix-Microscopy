@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6645155c-c7f0-4c85-827c-15a9a16cb878" alt="Figura 1" width="350"/>
-  <img src="https://github.com/user-attachments/assets/a2b81758-f997-45fd-aaa3-49080802fed5" alt="Figura 2" width="339.4"/>
+  <img src="https://github.com/user-attachments/assets/010148f0-9522-45eb-82d4-dc5af4be7078" alt="Figura 2" width="339.4"/>
 </p>
 
 ## Resumen
@@ -23,3 +23,7 @@ El sistema diseñado consiste en un conjunto de piezas impresas en 3D y componen
 6) Instalar Spinnaker SDK https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis
 7) Instalar las librerías: numpy opencv-python simple-pyspin PyQt5
 8) En caso de utilizar lente eléctrica, instalar Optotune https://www.optotune.com/registration-for-software-download
+
+## Contacto
+No dudar en contactarme a mi email personal.
+roman.demczylo@gmail.com

@@ -22,7 +22,7 @@ El sistema diseñado consiste en un conjunto de piezas impresas en 3D y componen
 5) Clonar https://github.com/RomanGDB/Mueller-Matrix-Microscopy/edit/main/
 6) Instalar Spinnaker SDK https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis
 7) Instalar las librerías: numpy opencv-python simple-pyspin PyQt5
-8) En caso de utilizar lente eléctrica, instalar Optotune https://www.optotune.com/registration-for-software-download
+8) En caso de utilizar lente eléctrica, instalarla también.
 
 ## Contacto
 No dudar en contactarme a mi email personal.

@@ -8,9 +8,13 @@ La polarización es una propiedad fundamental de la luz que puede modelarse medi
 En los últimos años, surgió la imaginería polarimétrica de Mueller: una técnica capaz de medir las matrices de Mueller sobre un campo de visión acotado, permitiendo visualizar las características físicas en un mapa bidimensional.
 
 
+
 Instalación
-1) Descargar e instalar Python
-2) Descargar e instalar Visual Code Studio (VCS)
-3) Descargar e instalar Git for Windows desde VCS
-4) Clonar https://github.com/RomanGDB/Mueller-Matrix-Microscopy/edit/main/ en el escritorio
-5) 
+1) Instalar Visual C++ https://www.microsoft.com/es-es/download/details.aspx?id=48145
+2) Descargar e instalar Python 3.10 https://www.python.org/downloads/
+3) Descargar e instalar Visual Code Studio (VCS) https://code.visualstudio.com/
+4) Descargar e instalar Git for Windows desde VCS
+5) Clonar https://github.com/RomanGDB/Mueller-Matrix-Microscopy/edit/main/
+6) Instalar Spinnaker SDK https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis
+7) Instalar librerías numpy opencv-python simple-pyspin PyQt5
+8) En caso de utilizar lente eléctrica, instalar Optotune https://www.optotune.com/registration-for-software-download

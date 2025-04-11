@@ -4,7 +4,11 @@ import sys
 sys.path.append('../')
 from camaralib.take_photo import take_photo
 from stokeslib.polarization_full_dec_array import polarization_full_dec_array
-from raspberrylib.ejecutar_comando_ssh import ejecutar_comando_ssh
+from raspberrylib.rpi_connection import RPiController
+
+# Conectar Raspberry Pi
+rpi = RPiController()
+rpi.conectar()
 
 # Dimension sensor
 dim = (2048,2448)  
@@ -21,7 +25,7 @@ def take_intensities(exposure_time, N, thetas_list):
     print('Angulos: ', thetas_list)
 
     # Matrices de estadísticas
-    I_stat = np.zeros((dim[0]//2,dim[1]//2,3,4,N_datos), dtype=float)[::decimador,::decimador]
+    I_stat = np.zeros((dim[0]//2,dim[1]//2,3,4,N_datos), dtype=np.uint8)[::decimador,::decimador]
     
     for i, theta in enumerate(thetas_list):
 
@@ -49,12 +53,15 @@ def take_intensities(exposure_time, N, thetas_list):
         if (theta != thetas_list[-1]):
             # Mueve el motor
             print(f"Moviendo T unos {angle_forward}º en direccion F ...")
-            comando = f"cd /home/mwsi/Desktop/main && python motor_control.py T F " + angle_forward
-            ejecutar_comando_ssh(comando)
+            comando = 'T F ' + angle_forward
+            rpi.ejecutar("python3 /home/mwsi/Desktop/main/motor_control.py " + comando)
 
     # Volver a posicion original
     print(f"Moviendo T unos {angle_backward}º en direccion B ...")
-    comando = f"cd /home/mwsi/Desktop/main && python motor_control.py T B " + angle_backward
-    ejecutar_comando_ssh(comando)
+    comando = 'T B ' + angle_backward
+    rpi.ejecutar("python3 /home/mwsi/Desktop/main/motor_control.py " + comando)
+
+    # Desconectar Raspberry Pi
+    rpi.desconectar()
 
     return I_stat

@@ -23,7 +23,7 @@ from stokeslib.calcular_propiedades import calcular_dolp, calcular_aolp
 os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = QLibraryInfo.location(
     QLibraryInfo.PluginsPath
 )
-#
+
 #Threading motores
 class thread_motor(Thread):
     def __init__(self, motor, movimiento):
@@ -247,11 +247,15 @@ class Ui(QMainWindow):
         thread.start()  
 
     def auto_capture(self):
+        #Detiene la cámara
         self.cam.stop()
-        # Nombre del archivo
+
+        # Ejecuta comando
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f"{self.o.current_value}_mA_" + f"{timestamp}"
+        filename = f"{self.current_value}_mA_" + f"{timestamp}"
         runcmd("cd simplelib/ && python simple_intensities.py " + filename, verbose=True)
+        
+        #Vuelve a iniciar la cámara
         self.cam.start()
    
     def motor_listen(self, label):

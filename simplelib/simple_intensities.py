@@ -48,7 +48,7 @@ def main():
     print("Guardando imagen...")
     I_stat_img = acoplar_matriz(I_stat)
     cv2.imwrite(PATH + 'I_' + name + '.png', I_stat_img)
-
+    
     return True
 
 if __name__ == '__main__':

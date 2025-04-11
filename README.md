@@ -21,7 +21,7 @@ El sistema diseñado consiste en un conjunto de piezas impresas en 3D y componen
 4) Descargar e instalar 'Git for Windows' desde VCS
 5) Clonar https://github.com/RomanGDB/Mueller-Matrix-Microscopy/edit/main/
 6) Instalar Spinnaker SDK https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis
-7) Instalar las librerías: numpy opencv-python simple-pyspin PyQt5
+7) Instalar las librerías: numpy opencv-python simple-pyspin PyQt5 paramiko
 8) En caso de utilizar lente eléctrica, instalarla también:
   https://www.optotune.com/downloads
   pip install git+https://github.com/OrganicIrradiation/opto.git

@@ -23,7 +23,7 @@ from stokeslib.calcular_propiedades import calcular_dolp, calcular_aolp
 os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = QLibraryInfo.location(
     QLibraryInfo.PluginsPath
 )
-
+#
 #Threading motores
 class thread_motor(Thread):
     def __init__(self, motor, movimiento):

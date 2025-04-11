@@ -16,7 +16,8 @@ sys.path.append('../')
 from stokeslib.polarization_full_dec_array import polarization_full_dec_array
 from stokeslib.calcular_stokes import calcular_stokes
 from camaralib.digitalizar import digitalizar
-from raspberrylib.runcmd import runcmd
+from camaralib.runcmd import runcmd
+from raspberrylib.rpi_connection import RPiController
 from stokeslib.calcular_propiedades import calcular_dolp, calcular_aolp
 
 os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = QLibraryInfo.location(
@@ -30,8 +31,17 @@ class thread_motor(Thread):
         self.motor = motor
         self.movimiento = movimiento
     def run(self):
-        comando = "cd raspberrylib/ && motor_control_ssh.py " + self.motor + ' ' + self.movimiento
-        runcmd(comando, verbose = True)
+        comando = self.motor + ' ' + self.movimiento + ' ' + '45'
+        rpi.ejecutar("python3 /home/mwsi/Desktop/main/motor_control.py " + comando)
+
+#Threading lente
+class thread_lens(Thread):
+    def __init__(self, o, current_value):
+        super(thread_lens, self).__init__()
+        self.current_value = current_value
+        self.o = o
+    def run(self):
+        self.o.current(self.current_value)
 
 # Configuración inicial cámara
 exposure_time = 5000
@@ -41,6 +51,8 @@ N = 1
 # Configuración inicial OptoTune
 current_value = 25.0
 current_step = 2.5
+max_current = 100 - current_step
+min_current = current_step
 
 #Decimador imagen
 decimador = 2
@@ -49,15 +61,15 @@ decimador = 2
 counter = 1000
 
 class Ui(QMainWindow):
-    def __init__(self, cam):
+    def __init__(self, rpi, cam):
         super(Ui, self).__init__()
+
+        #Objeto Raspberry Pi
+        self.rpi = rpi
 
         #Objeto cámara
         self.cam = cam
         
-        # Objeto Lente
-        self.o = Opto(port = 'COM3')
-
         # Contador
         self.counter = counter
 
@@ -67,15 +79,18 @@ class Ui(QMainWindow):
         #Inicializa Cámara
         self.start_cam(self)
 
+        #Inicializa Lente
+        self.start_lens(self)
+
+        #Configura Lente
+        self.config_lens(self)
+
         #Configura Cámara
         self.config_cam(self)
-        
-        # Inicializa OptoLens
-        self.start_optolens(self)
-        
-        # Configura OptoLens
-        self.config_otpolens(self)
 
+        #Configura Lente
+        self.config_lens(self)
+        
         #Muestra imagen
         self.start_recording(self) 
 
@@ -111,15 +126,22 @@ class Ui(QMainWindow):
     def config_cam(self, label):
         #Cambia tiempo de exposición
         self.cam.ExposureTime = self.exposure_time
+        print(f'Exposición actual: {self.exposure_time}')
 
-    def start_optolens(self, label):
-        # OptoTune
+    def start_lens(self, label):
+        # Iincializa lente
+        self.o = Opto(port = 'COM3')
         self.o.connect()
-        self.o.current_value = current_value
 
-    def config_otpolens(self, label):
-        # Configurar corriente cámara
-        self.o.current(self.o.current_value)
+    def config_lens(self, label):
+        #Cambia tiempo de exposición
+        self.current_value = current_value    
+        self.current_step = current_step
+        self.max_current = max_current
+        self.min_current = min_current    
+        thread = thread_lens(self.o, self.current_value)
+        thread.start()
+        print(f'Corriente actual: {self.current_value}')
 
     def config_program(self, label):
         #Cambia número de promedio
@@ -178,6 +200,10 @@ class Ui(QMainWindow):
         #Plot
         self.img.setPixmap(pixmap)
 
+    def copiar_motor_control(self, label):
+        # Copiar archivos (update)
+        self.rpi.copiar_motor_control()
+
     def move_up(self):
         thread = thread_motor("Y","B")
         thread.start()
@@ -202,13 +228,23 @@ class Ui(QMainWindow):
         thread = thread_motor("T","F")
         thread.start()  
         
-    def focus_plus_optolens(self):
-        self.o.current_value = self.o.current_value + current_step
-        self.o.current(self.o.current_value)
-
     def focus_minus_optolens(self):
-        self.o.current_value = self.o.current_value - current_step
-        self.o.current(self.o.current_value)
+        if self.current_value >= self.min_current:
+            self.current_value -= self.current_step
+            print(f'Corriente actual: {self.current_value}')
+        else:
+            print("Corriente mínima alcanzada.")
+        thread = thread_lens(self.o, self.current_value)
+        thread.start()  
+
+    def focus_plus_optolens(self):
+        if self.current_value <= self.max_current:
+            self.current_value += self.current_step
+            print(f'Corriente actual: {self.current_value}')
+        else:
+            print("Corriente máxima alcanzada.")
+        thread = thread_lens(self.o, self.current_value)
+        thread.start()  
 
     def auto_capture(self):
         self.cam.stop()
@@ -263,19 +299,34 @@ class Ui(QMainWindow):
         focus_minus_btn = self.focus_minus_btn
         focus_minus_btn.clicked.connect(self.focus_minus_optolens)
 
-def main(cam):
+def main(rpi, cam):
     app = QApplication(sys.argv)
-    instance = Ui(cam)
+    instance = Ui(rpi, cam)
     app.exec_()
 
 if __name__ == "__main__":
 
-    #Inicia GUI
-    with Camera() as cam:
-        main(cam)      
-    
-    #Detener cámara
-    cam.stop()  
+    # Conectar Raspberry Pi
+    rpi = RPiController()
+    rpi.conectar()
 
-    #Salir
-    sys.exit()
+    try:
+        # Inicia GUI con contexto de cámara
+        with Camera() as cam:
+            main(rpi, cam)  
+
+    except Exception as e:
+        print(f"Error durante la ejecución: {e}")
+
+    finally:
+        # Asegura la detención de la cámara y desconexión
+        try:
+            cam.stop()
+        except Exception:
+            pass  # Puede que la cámara ya esté detenida
+
+        # Desconectar Raspberry Pi
+        rpi.desconectar()
+
+        # Salir del programa
+        sys.exit()

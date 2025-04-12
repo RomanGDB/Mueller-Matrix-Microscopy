@@ -1,7 +1,7 @@
 # Mueller Matrix Microscopy
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9980bfc1-0515-4bea-8e9e-1b88e3ccab17" alt="Figura 1" width="1000"/>
+  <img src="https://github.com/user-attachments/assets/9980bfc1-0515-4bea-8e9e-1b88e3ccab17" alt="Figura 1" width="750"/>
 </p>
 
 ## Resumen

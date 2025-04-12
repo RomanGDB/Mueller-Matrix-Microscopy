@@ -19,7 +19,7 @@ Para medir los parámetros polarimétricos, seguimos el siguiente procedimiento.
 
 <pre>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7dd99bf4-1808-44a7-851d-41973c3cf440" alt="Figura 2" width="1000"/>
+  <img src="https://github.com/user-attachments/assets/c3d254d9-ee3a-4968-9531-9013a7df6b32" alt="Figura 2" width="1000"/>
       a)                                          b)                                          c)
 </p>  
 <p align="center"><b>Figura 2:</b> Esquema de obtención de imágenes.</p>
@@ -27,20 +27,20 @@ Para medir los parámetros polarimétricos, seguimos el siguiente procedimiento.
 
 ## Instalación
 
-1) Instalar Visual C++ :  
+1) Instalar Visual C++  
 https://www.microsoft.com/es-es/download/details.aspx?id=48145  
-3) Descargar e instalar Python 3.10:  
+3) Descargar e instalar Python 3.10  
 https://www.python.org/downloads/  
 5) Descargar e instalar Visual Code Studio (VCS)  
 https://code.visualstudio.com/  
 7) Descargar e instalar 'Git for Windows' desde VCS  
 8) Clonar github:  
 https://github.com/RomanGDB/Mueller-Matrix-Microscopy/edit/main/  
-10) Instalar Spinnaker SDK:  
+10) Instalar Spinnaker SDK  
 https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis  
-11) Instalar las librerías:  
+11) Instalar librerías  
 numpy opencv-python simple-pyspin PyQt5 paramiko  
-12) En caso de utilizar lente eléctrica:  
+12) En caso de utilizar lente eléctrica  
 Instalar Drivers https://www.optotune.com/downloads  
 pip install git+https://github.com/OrganicIrradiation/opto.git  
 

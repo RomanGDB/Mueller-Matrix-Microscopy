@@ -20,7 +20,7 @@ Para medir los parámetros polarimétricos, seguimos el siguiente procedimiento.
 <pre>
 <p align="center">
 <img src="https://github.com/user-attachments/assets/c3d254d9-ee3a-4968-9531-9013a7df6b32" alt="Figura 2" width="1000"/>
-a)                                         b)                                         c)
+a)                                     b)                                     c)
 </p>  
 <p align="center"><b>Figura 2:</b> Esquema de obtención de imágenes.</p>
 </pre>

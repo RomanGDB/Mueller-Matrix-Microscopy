@@ -8,7 +8,7 @@ La polarización es una propiedad fundamental de la luz que puede modelarse medi
 
 <pre>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9980bfc1-0515-4bea-8e9e-1b88e3ccab17" alt="Figura 1" width="500"/>
+<img src="https://github.com/user-attachments/assets/9980bfc1-0515-4bea-8e9e-1b88e3ccab17" alt="Figura 1" width="500"/>
 </p>
 <p align="center"><b>Figura 1:</b> Diagrama del sistema.</p>
 </pre>
@@ -19,8 +19,8 @@ Para medir los parámetros polarimétricos, seguimos el siguiente procedimiento.
 
 <pre>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c3d254d9-ee3a-4968-9531-9013a7df6b32" alt="Figura 2" width="1000"/>
-      a)                                          b)                                          c)
+<img src="https://github.com/user-attachments/assets/c3d254d9-ee3a-4968-9531-9013a7df6b32" alt="Figura 2" width="1000"/>
+a)                                         b)                                         c)
 </p>  
 <p align="center"><b>Figura 2:</b> Esquema de obtención de imágenes.</p>
 </pre>

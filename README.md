@@ -34,7 +34,7 @@ https://www.python.org/downloads/
 5) Download and install Visual Code Studio (VCS)  
 https://code.visualstudio.com/  
 7) Download and install 'Git for Windows' from VCS  
-8) Clone github:  
+8) Clone github  
 https://github.com/RomanGDB/Mueller-Matrix-Microscopy/edit/main/  
 10) Install Spinnaker SDK  
 https://www.teledynevisionsolutions.com/products/spinnaker-sdk/?model=Spinnaker%20SDK&vertical=machine%20vision&segment=iis  

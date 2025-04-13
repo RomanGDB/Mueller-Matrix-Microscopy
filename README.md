@@ -47,7 +47,7 @@ pip install git+https://github.com/OrganicIrradiation/opto.git
 ## References
 
 [1] Dennis H. Goldstein, *Polarized Light*, 3rd edition, CRC Press, 2010.  
-[2] Mahesh Swami et al., *Polar decomposition of 3×3 Mueller matrix: a tool for quantitative tissue polarimetry*, Optics Express, 2006.
+[2] Mahesh K. Swami et al., *Polar decomposition of 3×3 Mueller matrix: a tool for quantitative tissue polarimetry*, Optics Express, 2006.
 
 ## Related Publications
 

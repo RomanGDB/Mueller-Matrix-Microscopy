@@ -55,7 +55,7 @@ max_current = 100 - current_step
 min_current = current_step
 
 #Decimador imagen
-decimador = 2
+decimador = 4
 
 # Contador 
 counter = 1000
@@ -153,7 +153,7 @@ class Ui(QMainWindow):
         
         #Conexión
         timer.timeout.connect(self.update_image)
-        timer.start(0)
+        timer.start(33)
         self.update_image()    
 
     def update_image(self):
@@ -168,7 +168,11 @@ class Ui(QMainWindow):
         
         #Medibles
         I90, I45, I135, I0 = polarization_full_dec_array(raw, interpolacion = self.interpolador)
-
+        I90 = I90[::decimador,::decimador,:]
+        I45 = I45[::decimador,::decimador,:]
+        I135 = I135[::decimador,::decimador,:]
+        I0 = I0[::decimador,::decimador,:]
+        
         #Stokes
         S0, S1, S2 = calcular_stokes(I90, I45, I135, I0)
 
@@ -183,12 +187,13 @@ class Ui(QMainWindow):
             medida = digitalizar(locals()[medida_str], medida_str)
         
         #Imagen de la medida elegida
-        img = (medida[::decimador,::decimador,:]).astype(np.uint8)
+        img = medida.astype(np.uint8)
         img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
         
         #Formato Array to PixMap
         h, w, _ = img.shape
-        S0QIMG = QImage(img, w, h, QImage.Format_RGB888)
+        bytes_per_line = 3 * w  # 3 canales (RGB) * ancho
+        S0QIMG = QImage(img.data, w, h, bytes_per_line, QImage.Format_RGB888)
         pixmap = QPixmap(S0QIMG)
 
         # Alerta píxeles saturados
@@ -251,7 +256,7 @@ class Ui(QMainWindow):
         self.cam.stop()
 
         # Ejecuta comando
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         filename = f"{self.current_value}_mA_" + f"{timestamp}"
         runcmd("cd simplelib/ && python simple_intensities.py " + filename, verbose=True)
         
